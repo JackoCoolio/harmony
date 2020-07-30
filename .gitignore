@@ -9,3 +9,6 @@
 *.sh
 *.bat
 
+# VIM FILES
+*.swp
+
