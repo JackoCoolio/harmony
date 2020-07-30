@@ -10,8 +10,8 @@ CFLAGS=-Wall $(INC) $(LIB)
 
 all: $(OUTPUT)
 
-$(OUTPUT): main.o harmony_context.o
-	$(CC) main.o harmony_context.o -o $(BINDIR)/$@ $(CFLAGS)
+$(OUTPUT): main.o harmony_context.o harmony_node.o harmony_linked_list.o
+	$(CC) main.o harmony_context.o harmony_node.o harmony_linked_list.o -o $(BINDIR)/$@ $(CFLAGS)
 
 main.o: $(SRC)/main.c
 	$(CC) -c $(SRC)/main.c $(CFLAGS)
@@ -19,6 +19,12 @@ main.o: $(SRC)/main.c
 harmony_context.o: $(SRC)/harmony_context.c $(SRC)/harmony_context.h
 	$(CC) -c $(SRC)/harmony_context.c $(CFLAGS)
 
+harmony_node.o: $(SRC)/harmony_node.c $(SRC)/harmony_node.h harmony_linked_list.o
+	$(CC) -c $(SRC)/harmony_node.c $(CFLAGS)
+
+harmony_linked_list.o: $(SRC)/harmony_linked_list.c $(SRC)/harmony_linked_list.h
+	$(CC) -c $(SRC)/harmony_linked_list.c $(CFLAGS)
+
 clean:
-	rm main.o harmony_context.o $(BINDIR)/$(OUTPUT)
+	rm main.o harmony.o harmony_context.o harmony_linked_list.o harmony_node.o $(BINDIR)/$(OUTPUT)
 

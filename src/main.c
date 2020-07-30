@@ -11,6 +11,12 @@ int harmony_createApplication()
 
 	Sleep(2000);
 
+	harmony_world_t *world = harmony_createWorld();
+	harmony_node_t *node = harmony_createNode(world->baseNode);
+	// harmony_node_t *subnode = harmony_createNode(node);
+
+	Sleep(1000);
+
 	harmony_destroyContext(ctx);
 	harmony_terminate();
 
