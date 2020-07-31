@@ -7,17 +7,18 @@
 
 void harmony_ll_append(harmony_ll_t *list, void *data)
 {
-	printf("%d", (list->data == NULL));
+	printf("Beginning append %p to LL %p\n", data, list);
 	if (list->data == NULL)
 	{
 		list->data = data;
+		printf("Starting LL with pointer %p\n", data);
 		return;
 	}
 	
-	printf("%p\n", list);
+	printf("Appending %p to LL %p\n", data, list);
 	while (list->next != NULL)
 	{
-		printf("%p\n", list->next);
+		printf("Traversing LL @ %p\n", list->next);
 		list = list->next;
 	}
 	
