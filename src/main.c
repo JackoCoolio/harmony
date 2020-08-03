@@ -19,6 +19,8 @@ int harmony_createApplication()
 		nodes[i] = harmony_createNode(world->baseNode);
 	}
 
+	harmony_doTick(world);
+
 	harmony_destroyContext(ctx);
 	harmony_terminate();
 
