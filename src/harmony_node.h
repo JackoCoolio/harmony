@@ -14,6 +14,7 @@ typedef struct harmony_node_t
 typedef struct
 {
 	harmony_node_t *baseNode;
+	long long lastTick;
 } harmony_world_t;
 
 harmony_world_t *harmony_createWorld();
