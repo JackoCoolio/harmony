@@ -1,12 +1,12 @@
 CC=gcc
 BINDIR=bin
 SRC=src
-OUTPUT=app.exe
+OUTPUT=libharmony.a
 
 INC=-Ivendor/glfw/include/ -Ivendor/glew/include/
 LIB=-Lvendor/glfw/lib/ -Lvendor/glew/lib/ -lglfw3 -lgdi32 -lglew32 -lopengl32
 
-OBJECTS = main.o harmony_context.o harmony_node.o harmony_linked_list.o harmony_loop.o harmony_timer.o
+OBJECTS = harmony_entry.o harmony_context.o harmony_node.o harmony_linked_list.o harmony_loop.o harmony_timer.o
 HARMONY_FLAGS=-DHARMONY_BUILD_WINDOWS
 
 CFLAGS=-Wall $(INC) $(LIB) $(HARMONY_FLAGS)
@@ -14,10 +14,10 @@ CFLAGS=-Wall $(INC) $(LIB) $(HARMONY_FLAGS)
 all: $(OUTPUT)
 
 $(OUTPUT): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(BINDIR)/$@ $(CFLAGS) 
+	ar rcs $(BINDIR)/$@ $(OBJECTS)
 
-main.o: $(SRC)/main.c
-	$(CC) -c $(SRC)/main.c $(CFLAGS)
+harmony_entry.o: $(SRC)/harmony_entry.c $(SRC)/harmony_entry.h
+	$(CC) -c $(SRC)/harmony_entry.c $(CFLAGS)
 
 harmony_context.o: $(SRC)/harmony_context.c $(SRC)/harmony_context.h
 	$(CC) -c $(SRC)/harmony_context.c $(CFLAGS)
