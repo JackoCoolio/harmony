@@ -1,8 +1,11 @@
-# Objects
+# OBJECTS
 *.o
 
 # EXEs
 *.exe
+
+# BUILD FILES
+bin/
 
 # SHORTCUTS
 *.lnk
