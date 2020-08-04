@@ -6,7 +6,7 @@ OUTPUT=libharmony.a
 INC=-Ivendor/glfw/include/ -Ivendor/glew/include/
 LIB=-Lvendor/glfw/lib/ -Lvendor/glew/lib/ -lglfw3 -lgdi32 -lglew32 -lopengl32
 
-OBJECTS = harmony_entry.o harmony_context.o harmony_node.o harmony_linked_list.o harmony_loop.o harmony_timer.o
+OBJECTS = harmony_entry.o harmony_context.o harmony_timer.o
 HARMONY_FLAGS=-DHARMONY_BUILD_WINDOWS
 
 CFLAGS=-Wall $(INC) $(LIB) $(HARMONY_FLAGS)
@@ -21,15 +21,6 @@ harmony_entry.o: $(SRC)/harmony_entry.c $(SRC)/harmony_entry.h
 
 harmony_context.o: $(SRC)/harmony_context.c $(SRC)/harmony_context.h
 	$(CC) -c $(SRC)/harmony_context.c $(CFLAGS)
-
-harmony_node.o: $(SRC)/harmony_node.c $(SRC)/harmony_node.h harmony_linked_list.o
-	$(CC) -c $(SRC)/harmony_node.c $(CFLAGS)
-
-harmony_linked_list.o: $(SRC)/harmony_linked_list.c $(SRC)/harmony_linked_list.h
-	$(CC) -c $(SRC)/harmony_linked_list.c $(CFLAGS)
-
-harmony_loop.o: $(SRC)/harmony_loop.c $(SRC)/harmony_loop.h
-	$(CC) -c $(SRC)/harmony_loop.c $(CFLAGS)
 
 harmony_timer.o: $(SRC)/harmony_timer.c $(SRC)/harmony_timer.h
 	$(CC) -c $(SRC)/harmony_timer.c $(CFLAGS)
