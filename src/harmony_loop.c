@@ -3,6 +3,7 @@
 
 #include "harmony_loop.h"
 #include "harmony_linked_list.h"
+#include "harmony_timer.h"
 
 void updateNode(harmony_node_t *node, long long delta)
 {
@@ -28,18 +29,14 @@ void updateNode(harmony_node_t *node, long long delta)
 void harmony_doTick(harmony_world_t *world)
 {
 
-    // TODO: FInish this.
+    // Get current time
+    uint64_t now = harmony_getNanoseconds();
 
-    long long delta;
+    // Calculate time since last Tick
+    uint64_t delta = now - world->lastTick;
 
-    #ifdef HARMONY_BUILD_WINDOWS
-    LARGE_INTEGER curTime;
-    QueryPerformanceCounter(&curTime);
-    delta = curTime.QuadPart - world->lastTick;
-    world->lastTick = curTime.QuadPart;
-    #else
-    #error "Harmony is not compatible with non-Windows operating systems!"
-    #endif
+    // Set last Tick to be right now
+    world->lastTick = now;
 
 	harmony_node_t *baseNode = world->baseNode;
     updateNode(baseNode, delta);

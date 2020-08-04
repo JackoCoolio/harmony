@@ -6,11 +6,13 @@
 
 #include "harmony_node.h"
 #include "harmony_linked_list.h"
+#include "harmony_timer.h"
 
 harmony_world_t *harmony_createWorld()
 {
 	harmony_world_t *world = malloc(sizeof(harmony_world_t));
 	world->baseNode = harmony_createNode(NULL);
+	world->lastTick = harmony_getNanoseconds();
 	return world;
 }
 
