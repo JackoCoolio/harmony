@@ -9,6 +9,6 @@ typedef struct harmony_ll_t
 
 void harmony_ll_append(harmony_ll_t *list, void *data);
 
-harmony_ll_t harmony_createLinkedList(void *data);
+harmony_ll_t *harmony_createLinkedList(void *data);
 
 #endif

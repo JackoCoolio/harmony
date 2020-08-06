@@ -27,3 +27,10 @@ void harmony_ll_append(harmony_ll_t *list, void *data)
 	list->next->next = NULL;
 }
 
+harmony_ll_t *harmony_createLinkedList(void *data)
+{
+	harmony_ll_t *list = malloc(sizeof(harmony_ll_t));
+	list->data = data;
+	list->next = NULL;
+	return list;
+}
