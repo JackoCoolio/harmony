@@ -22,12 +22,20 @@ int harmony_initialize(harmony_context_t *ctx, int width, int height, const char
 	if (!ctx->window)
 	{
 		printf("woah hold on");
-		glfwTerminate();
+		harmony_terminate();
 		return 1;
 	}
 
 	if (makeCurrent)
 		glfwMakeContextCurrent(ctx->window);
+
+	glewExperimental = 1;
+	if (glewInit() != GLEW_OK)
+	{
+		printf("GLEW failed to initialize!");
+		harmony_terminate();
+		return 1;
+	}
 	
 	return 0;
 }

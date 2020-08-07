@@ -2,9 +2,10 @@
 #define HARMONY_H
 
 // #define GLFW_DLL
+#include <gl/glew.h>
 #include "GLFW/glfw3.h"
 
-typedef struct
+typedef struct harmony_context
 {
 	GLFWwindow *window;
 } harmony_context_t;
