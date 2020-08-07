@@ -5,6 +5,4 @@ extern int harmony_createApplication(int argc, char **argv);
 
 int main(int argc, char **argv);
 
-#define main harmony_createApplication
-
 #endif
