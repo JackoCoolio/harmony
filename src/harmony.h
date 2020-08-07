@@ -3,19 +3,24 @@ extern "C"
 {
 #endif
 
-// Long list of includes.
+#define GLEW_STATIC
+
+// Harmony Core
 #include "harmony_context.h"
-#include "harmony_node.h"
+
+// Data types & general utilities
+#include "harmony_vector.h"
 #include "harmony_linked_list.h"
-#include "harmony_loop.h"
+#include "harmony_timer.h"
+#include "harmony_file.h"
+
+// Graphics
+#include "harmony_shader.h"
+#include "harmony_renderer.h"
+#include "harmony_texture.h"
 
 // Entry point
 #include "harmony_entry.h"
-// Entry point
-
-#ifndef HARMONY_DISABLE_MAIN
-#define main harmony_createApplication
-#endif
 
 #ifdef __cplusplus
 }
