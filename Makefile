@@ -3,10 +3,10 @@ BINDIR=bin
 SRC=src
 OUTPUT=libharmony.a
 
-INC=-Ivendor/glfw/include/ -Ivendor/glew/include/ -Ivendor/lodepng/include/
-LIB=-Lvendor/glfw/lib/ -Lvendor/glew/lib/ -lglfw3 -lgdi32 -lopengl32
+INC=-Ivendor/glfw/include/ -Ivendor/glew/include/ -Ivendor/lodepng/include/ -Ivendor/cglm/include/
+LIB=-Lvendor/glfw/lib/ -Lvendor/glew/lib/ -Lvendor/cglm/lib/ -lcglm -lglfw3 -lgdi32 -lopengl32
 
-OBJECTS = harmony_entry.o harmony_context.o harmony_timer.o harmony_renderer.o harmony_shader.o harmony_file.o harmony_log.o harmony_texture.o glew.o lodepng.o
+OBJECTS = harmony_entry.o harmony_context.o harmony_timer.o harmony_renderer.o harmony_shader.o harmony_file.o harmony_log.o harmony_texture.o harmony_batch.o glew.o lodepng.o
 HARMONY_FLAGS=-DHARMONY_BUILD_WINDOWS
 
 CFLAGS=-Wall $(INC) $(LIB) $(HARMONY_FLAGS) -DGLEW_STATIC
@@ -49,6 +49,9 @@ harmony_log.o: $(SRC)/harmony_log.c $(SRC)/harmony_log.h
 
 harmony_texture.o: $(SRC)/harmony_texture.c $(SRC)/harmony_texture.h
 	$(CC) -c $(SRC)/harmony_texture.c $(CFLAGS)
+
+harmony_batch.o: $(SRC)/harmony_batch.c $(SRC)/harmony_batch.h
+	$(CC) -c $(SRC)/harmony_batch.c $(CFLAGS)
 
 # harmony_vector.o: $(SRC)/harmony_vector.c $(SRC)/harmony_vector.h
 # 	$(CC) -c $(SRC)/harmony_vector.c $(CFLAGS)
