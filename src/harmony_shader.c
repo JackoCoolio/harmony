@@ -40,7 +40,7 @@ harmony_shader_t harmony_compileShaderFromFile(const char *vertPath, const char 
 
     glLinkProgram(shader);
 
-    checkErrors(shader, 1);
+    // checkErrors(shader, 1);
 
     glDeleteShader(sVert);
     glDeleteShader(sFrag);
