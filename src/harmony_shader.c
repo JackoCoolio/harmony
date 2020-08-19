@@ -33,7 +33,7 @@ harmony_shader_t harmony_compileShaderFromFile(const char *vertPath, const char 
 
     shader = glCreateProgram();
 
-    checkErrors(shader, 0);
+    // checkErrors(shader, 0);
 
     glAttachShader(shader, sVert);
     glAttachShader(shader, sFrag);
