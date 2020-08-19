@@ -38,6 +38,7 @@ harmony_texture_t harmony_createTexture(const char *path, int alpha, int generat
     return tex;
 }
 
+/*
 harmony_texture_t harmony_createTextureArrayVertical(const char *path, int alpha, int generateMipmap, int wrapMode, int filterMode, int numFrames)
 {
     harmony_texture_t tex;
@@ -75,3 +76,4 @@ harmony_texture_t harmony_createTextureArrayVertical(const char *path, int alpha
 
     return tex;
 }
+*/
