@@ -1,3 +1,5 @@
+#include <malloc.h>
+
 #include <GL/glew.h>
 #include <GL/GL.h>
 #include <lodepng.h>
@@ -36,6 +38,14 @@ harmony_texture_t harmony_createTexture(const char *path, int alpha, int generat
     glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture.
 
     return tex;
+}
+
+float *harmony_convertImageToTextureCoordinates(int x, int y, int w, int h)
+{
+    float *result = malloc(8);
+    result[0] = x / w;
+    result[1] = 1 - (y / w);
+    return result;
 }
 
 /*
