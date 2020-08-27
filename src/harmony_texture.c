@@ -23,7 +23,7 @@ harmony_texture_t harmony_createTexture(const char *path, int alpha, int generat
         glGenerateMipmap(GL_TEXTURE_2D); // Generate mipmaps.
 
     unsigned char *image;
-    int width, height;
+    unsigned int width, height;
     if (alpha)
     {
         lodepng_decode32_file(&image, &width, &height, path); // Read RGBA image.
