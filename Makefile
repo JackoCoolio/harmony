@@ -6,10 +6,10 @@ OUTPUT=libharmony.a
 INC=-Ivendor/glfw/include/ -Ivendor/glew/include/ -Ivendor/lodepng/include/ -Ivendor/cglm/include/
 LIB=-Lvendor/glfw/lib/ -Lvendor/glew/lib/ -Lvendor/cglm/lib/ -lcglm -lglfw3 -lgdi32 -lopengl32
 
-OBJECTS = harmony_entry.o harmony_context.o harmony_timer.o harmony_renderer.o harmony_shader.o harmony_file.o harmony_log.o harmony_texture.o harmony_batch.o glew.o lodepng.o
+OBJECTS = harmony_entry.o harmony_context.o harmony_timer.o harmony_renderer.o harmony_shader.o harmony_file.o harmony_log.o harmony_texture.o harmony_batch.o harmony_buffer.o harmony_sprite.o glew.o lodepng.o
 HARMONY_FLAGS=-DHARMONY_BUILD_WINDOWS
 
-CFLAGS=-Wall $(INC) $(LIB) $(HARMONY_FLAGS) -DGLEW_STATIC
+CFLAGS=-Wall -Wno-missing-braces $(INC) $(LIB) $(HARMONY_FLAGS) -DGLEW_STATIC
 
 CONFIG := release
 
@@ -52,6 +52,12 @@ harmony_texture.o: $(SRC)/harmony_texture.c $(SRC)/harmony_texture.h
 
 harmony_batch.o: $(SRC)/harmony_batch.c $(SRC)/harmony_batch.h
 	$(CC) -c $(SRC)/harmony_batch.c $(CFLAGS)
+
+harmony_buffer.o: $(SRC)/harmony_buffer.c $(SRC)/harmony_buffer.h
+	$(CC) -c $(SRC)/harmony_buffer.c $(CFLAGS)
+
+harmony_sprite.o: $(SRC)/harmony_sprite.c $(SRC)/harmony_sprite.h
+	$(CC) -c $(SRC)/harmony_sprite.c $(CFLAGS)
 
 # harmony_vector.o: $(SRC)/harmony_vector.c $(SRC)/harmony_vector.h
 # 	$(CC) -c $(SRC)/harmony_vector.c $(CFLAGS)
