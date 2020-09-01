@@ -10,18 +10,18 @@ harmony_texture_t harmony_createTexture(const char *path, int alpha, int generat
 {
     harmony_texture_t tex;
     glGenTextures(1, &tex); // Generate an ID for the texture.
-
+    
     glBindTexture(GL_TEXTURE_2D, tex); // Bind texture.
-
+    
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode); // Set horizontal wrap mode.
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode); // Set vertical wrap mode.
-
+    
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filterMode); // Set filter mode for minification.
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filterMode); // Set filter mode for magnification.
-
+    
     if (generateMipmap)
         glGenerateMipmap(GL_TEXTURE_2D); // Generate mipmaps.
-
+    
     unsigned char *image;
     unsigned int width, height;
     if (alpha)
@@ -32,11 +32,11 @@ harmony_texture_t harmony_createTexture(const char *path, int alpha, int generat
     {
         lodepng_decode24_file(&image, &width, &height, path); // Read RGB image.
     }
-
+    
     glTexImage2D(GL_TEXTURE_2D, 0, (alpha)? GL_RGBA : GL_RGB, width, height, 0, (alpha)? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, image); // Load texture.
-
+    
     glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture.
-
+    
     return tex;
 }
 

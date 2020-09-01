@@ -17,3 +17,6 @@ bin/
 
 # VSCODE FILES
 .vscode/
+
+# 4CODER FILES
+project.4coder
