@@ -61,7 +61,7 @@
 
 // void harmony_renderBatch(harmony_batch_t *batch)
 // {
-    
+
 // }
 
 // typedef struct harmony_vertex
@@ -113,36 +113,65 @@ harmony_texture_t tex;
 
 void harmony_testInit()
 {
+    /*
+    printf("%i\n", glGetError());
     glViewport(0, 0, 640, 480);
+    printf("%i\n", glGetError());
     glMatrixMode(GL_PROJECTION);
+    printf("%i\n", glGetError());
     glLoadIdentity();
+    printf("%i\n", glGetError());
     glOrtho(0, 640, 480, 0, -1, 1);
+    printf("%i\n", glGetError());
     glMatrixMode(GL_MODELVIEW);
+    printf("%i\n", glGetError());
     glLoadIdentity();
-
+    
+    printf("%i\n", glGetError());
+    
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
     glDisable(GL_ALPHA_TEST);
-
-    batch = harmony_createBatch(1, 1);
-
-    printf("%i\n", batch->texturesIndex);
-
-    tex = harmony_createTexture("assets/texA.png", 1, 0, GL_REPEAT, GL_NEAREST);
+    */
     
-    printf("%i", harmony_addTexture(batch, tex));
-
-    printf("%i\n", batch->texturesIndex);
-
-    printf("%i", harmony_addTexture(batch, tex));
-
-    printf("%i\n", batch->texturesIndex);
+    //printf("%i\n", glGetError());
+    
+    // Load shader //
+    harmony_checkError(harmony_shader_t shader = harmony_compileShaderFromFile("batch.vert", "batch.frag"));
+    // Load shader //
+    
+    harmony_checkError(batch = harmony_createBatch(1, shader));
+    
+    //printf("%i\n", batch->texturesIndex);
+    
+    harmony_checkError(tex = harmony_createTexture("assets/texA.png", 1, 0, GL_REPEAT, GL_NEAREST));
+    
+    harmony_checkError(int texIndex = harmony_addTexture(batch, tex));
+    
+    harmony_checkError(harmony_sprite_t sprite = harmony_addSprite(batch, texIndex));
+    
+    harmony_vertex_t v1 = {{ -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f }};
+    harmony_vertex_t v2 = {{ -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f }};
+    harmony_vertex_t v3 = {{  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f }};
+    harmony_vertex_t v4 = {{  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f }};
+    
+    harmony_quad_t quad = {{ v2, v3, v4, v1 }};
+    
+    harmony_checkError(harmony_setQuadData(batch->quads, sprite.index, quad));
+    
+    glClearColor(0.2, 0.2, 0.2, 1.0);
+    
 }
 
 void harmony_testRender(harmony_context_t *ctx)
 {
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    harmony_checkError(harmony_renderBatch(batch));
+    
+    glfwSwapBuffers(ctx->window);
 }
 
 // GLuint vbo, vao, ebo;
@@ -234,7 +263,7 @@ void harmony_testRender(harmony_context_t *ctx)
 // void harmony_testRender(harmony_context_t *ctx)
 // {
 //     glClear(GL_COLOR_BUFFER_BIT);
-    
+
 //     glBindVertexArray(vao);
 
 //     glUseProgram(shader);
