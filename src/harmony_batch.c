@@ -88,31 +88,48 @@ int harmony_addTexture(harmony_batch_t *batch, harmony_texture_t texture)
     return batch->texturesIndex++;
 }
 
+int harmony_deleteSprite(harmony_batch_t *batch, harmony_sprite_t sprite)
+{
+    if (sprite == batch->quadsIndex)
+        return 1;
+    
+    void *quadSrc = batch->quads + ((batch->quadsIndex - 1) * sizeof(harmony_quad_t));
+    void *quadDest = batch->quads + (sprite * sizeof(harmony_quad_t));
+    
+    memcpy(quadDest, quadSrc, sizeof(harmony_quad_t));
+    
+    void *indicesSrc = batch->indices + (6 * (batch->indicesIndex - 1) * sizeof(unsigned int));
+    void *indicesDest = batch->indices + (6 * sprite * sizeof(unsigned int));
+    
+    memcpy(indicesDest, indicesSrc, 6 * sizeof(unsigned int));
+    
+    batch->quadsIndex--;
+    batch->indicesIndex -= 6;
+    
+    return 0;
+}
+
 harmony_sprite_t harmony_addSprite(harmony_batch_t *batch, int textureIndex)
 {
-    harmony_sprite_t sprite;
+    harmony_sprite_t sprite = -1;
     
-    if (batch->quadsIndex == batch->quadsCapacity)
+    if (batch->quadsIndex < batch->quadsCapacity)
     {
-        sprite.index = -1;
-    }
-    else
-    {
-        sprite.index = batch->quadsIndex++;
+        sprite = batch->quadsIndex++;
         
         // Set up indices
         // Indices will always be in the order:
         // 0, 2, 3, 0, 1, 2
         // And vertices will always be clockwise starting from the top-left
         
-        int offset = sprite.index * 6;
+        int offset = sprite * 6;
         
-        batch->indices[sprite.index * 6 + 0] = 0 + offset;
-        batch->indices[sprite.index * 6 + 1] = 2 + offset;
-        batch->indices[sprite.index * 6 + 2] = 3 + offset;
-        batch->indices[sprite.index * 6 + 3] = 0 + offset;
-        batch->indices[sprite.index * 6 + 4] = 1 + offset;
-        batch->indices[sprite.index * 6 + 5] = 2 + offset;
+        batch->indices[sprite * 6 + 0] = 0 + offset;
+        batch->indices[sprite * 6 + 1] = 2 + offset;
+        batch->indices[sprite * 6 + 2] = 3 + offset;
+        batch->indices[sprite * 6 + 3] = 0 + offset;
+        batch->indices[sprite * 6 + 4] = 1 + offset;
+        batch->indices[sprite * 6 + 5] = 2 + offset;
         batch->indicesIndex += 6;
     }
     
@@ -121,7 +138,7 @@ harmony_sprite_t harmony_addSprite(harmony_batch_t *batch, int textureIndex)
 
 void harmony_setSpriteQuad(harmony_batch_t *batch, harmony_sprite_t sprite, harmony_quad_t data)
 {
-    batch->quads[sprite.index] = data;
+    batch->quads[sprite] = data;
 }
 
 void harmony_renderBatch(harmony_batch_t *batch)

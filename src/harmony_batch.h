@@ -1,12 +1,13 @@
 #ifndef HARMONY_BATCH_H
 #define HARMONY_BATCH_H
 
-#include "harmony_sprite.h"
 #include "harmony_texture.h"
 #include "harmony_buffer.h"
 #include "harmony_shader.h"
 
 #define HARMONY_BATCH_MAX_TEXTURES 32
+
+typedef unsigned int harmony_sprite_t;
 
 typedef struct harmony_batch
 {
@@ -31,6 +32,8 @@ typedef struct harmony_batch
 harmony_batch_t *harmony_createBatch(int numQuads, harmony_shader_t shader);
 
 int harmony_addTexture(harmony_batch_t *batch, harmony_texture_t texture);
+
+int harmony_deleteSprite(harmony_batch_t *batch, harmony_sprite_t sprite);
 
 harmony_sprite_t harmony_addSprite(harmony_batch_t *batch, int textureIndex);
 
