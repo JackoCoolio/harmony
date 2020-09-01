@@ -1,40 +1,43 @@
 #ifndef HARMONY_BATCH_H
 #define HARMONY_BATCH_H
 
+#include "harmony_sprite.h"
 #include "harmony_texture.h"
+#include "harmony_buffer.h"
+#include "harmony_shader.h"
 
-typedef struct harmony_vertex
-{
-    float position[2];
-    float color[4];
-    float textureIndex;
-    float textureOffset[2];
-} harmony_vertex_t;
-
-typedef struct harmony_sprite
-{
-    unsigned int index;
-    harmony_texture_t texture;
-} harmony_sprite_t;
+#define HARMONY_BATCH_MAX_TEXTURES 32
 
 typedef struct harmony_batch
 {
+    harmony_shader_t shader;
+    
     unsigned int vao;
     unsigned int vbo;
     unsigned int ebo;
-
-    harmony_vertex_t *vertices;
+    
+    harmony_quad_t *quads;
     harmony_texture_t *textures;
-
-    unsigned int verticesCapacity;
-    unsigned int texturesCapacity;
-
-    unsigned int verticesIndex;
+    unsigned int *indices;
+    
+    unsigned int quadsCapacity;
+    unsigned int indicesCapacity;
+    
+    unsigned int quadsIndex;
     unsigned int texturesIndex;
+    unsigned int indicesIndex;
 } harmony_batch_t;
 
-harmony_batch_t *harmony_createBatch(int numQuads, int numTextures);
+harmony_batch_t *harmony_createBatch(int numQuads, harmony_shader_t shader);
 
 int harmony_addTexture(harmony_batch_t *batch, harmony_texture_t texture);
+
+harmony_sprite_t harmony_addSprite(harmony_batch_t *batch, int textureIndex);
+
+void harmony_setSpriteQuad(harmony_batch_t *batch, harmony_sprite_t sprite, harmony_quad_t data);
+
+void harmony_updateBatch(harmony_batch_t *batch);
+
+void harmony_renderBatch(harmony_batch_t *batch);
 
 #endif
