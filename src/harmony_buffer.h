@@ -1,6 +1,8 @@
 #ifndef HARMONY_BUFFER_H
 #define HARMONY_BUFFER_H
 
+#define BUFFER_OFFSET(x) (void*)(x)
+
 typedef unsigned int GLenum;
 
 typedef union harmony_vertex
@@ -31,7 +33,7 @@ void harmony_setQuadData(harmony_quad_t *vertices, unsigned int quadIndex, harmo
 
 harmony_quad_t *harmony_getQuad(harmony_quad_t *vertices, unsigned int quadIndex);
 
-
+void harmony_printQuad(harmony_quad_t *quad);
 
 void harmony_printVertex(harmony_vertex_t *vertex);
 

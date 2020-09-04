@@ -23,6 +23,14 @@ harmony_quad_t *harmony_getQuad(harmony_quad_t *quads, unsigned int quadIndex)
     return quads + quadIndex * sizeof(harmony_quad_t);
 }
 
+void harmony_printQuad(harmony_quad_t *quad)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        harmony_printVertex(&((harmony_vertex_t*) quad)[i]);
+    }
+}
+
 void harmony_printVertex(harmony_vertex_t *vertex)
 {
     for (int i = 0; i < 9; i++)
