@@ -122,7 +122,7 @@ harmony_sprite_t harmony_addSprite(harmony_batch_t *batch, int textureIndex)
         // 0, 2, 3, 0, 1, 2
         // And vertices will always be clockwise starting from the top-left
         
-        int offset = sprite * 6;
+        int offset = sprite * 4;
         
         batch->indices[sprite * 6 + 0] = 0 + offset;
         batch->indices[sprite * 6 + 1] = 2 + offset;
@@ -144,7 +144,6 @@ void harmony_setSpriteQuad(harmony_batch_t *batch, harmony_sprite_t sprite, harm
 void harmony_renderBatch(harmony_batch_t *batch)
 {
     
-    //printf("VAO: %i, VBO: %i, EBO: %i\n", batch->vao, batch->vbo, batch->ebo);
     harmony_checkError(glUseProgram(batch->shader));
     
     harmony_checkError(glBindVertexArray(batch->vao));
@@ -153,23 +152,10 @@ void harmony_renderBatch(harmony_batch_t *batch)
     //printf("Calling glBufferData on GL_ARRAY_BUFFER with params: %I64i, %p\n", batch->quadsIndex * sizeof(harmony_quad_t), batch->quads);
     
     harmony_checkError(glBufferData(GL_ARRAY_BUFFER, batch->quadsIndex * sizeof(harmony_quad_t), batch->quads, GL_DYNAMIC_DRAW));
-    harmony_quad_t *returnQuads = malloc(batch->quadsIndex * sizeof(harmony_quad_t));
-    glGetBufferSubData(GL_ARRAY_BUFFER, 0, batch->quadsIndex * sizeof(harmony_quad_t), returnQuads);
-    for (int i = 0; i < batch->quadsIndex * 4; i++)
-    {
-        //harmony_printVertex(&((harmony_vertex_t*) batch->quads)[i]);
-    }
     
     harmony_checkError(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, batch->ebo));
     //printf("Calling glBufferData on GL_ELEMENT_ARRAY_BUFFER with params: %I64i, %p\n", batch->indicesIndex * sizeof(unsigned int), batch->indices);
     harmony_checkError(glBufferData(GL_ELEMENT_ARRAY_BUFFER, batch->indicesIndex * sizeof(unsigned int), batch->indices, GL_DYNAMIC_DRAW));
-    unsigned int *returnData = malloc(batch->indicesIndex * sizeof(unsigned int));
-    glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, batch->indicesIndex * sizeof(unsigned int), returnData);
-    //for (int i = 0; i < batch->indicesIndex; i++)
-    //{
-    //printf("%i ", returnData[i]);
-    //}
-    //printf("\n");
     
     int sampleUniformLoc = 5;
     
@@ -184,12 +170,7 @@ void harmony_renderBatch(harmony_batch_t *batch)
     
     harmony_checkError(glUniform1iv(sampleUniformLoc, HARMONY_BATCH_MAX_TEXTURES, samplers));
     
-    
-    //harmony_clearErrors();
-    harmony_checkError(glDrawElements(GL_TRIANGLES, batch->quadsIndex * 6, GL_UNSIGNED_INT, (void*) 0));
-    //harmony_checkError(glDrawArrays(GL_TRIANGLES, 0, 4));
-    
-    //harmony_logErrors();
+    harmony_checkError(glDrawElements(GL_TRIANGLES, batch->quadsIndex * 6, GL_UNSIGNED_INT, BUFFER_OFFSET(0)));
     
     glUseProgram(0);
     
