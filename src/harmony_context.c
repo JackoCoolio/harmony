@@ -12,8 +12,11 @@ harmony_context_t *harmony_createContext()
 int harmony_initialize(harmony_context_t *ctx, int width, int height, const char *title, int makeCurrent)
 {
 	
+    ctx->width = width;
+    ctx->height = height;
+    
 	glfwInit();
-
+    
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -25,10 +28,10 @@ int harmony_initialize(harmony_context_t *ctx, int width, int height, const char
 		harmony_terminate();
 		return 1;
 	}
-
+    
 	if (makeCurrent)
 		glfwMakeContextCurrent(ctx->window);
-
+    
 	glewExperimental = 1;
 	if (glewInit() != GLEW_OK)
 	{
@@ -44,7 +47,7 @@ int harmony_destroyContext(harmony_context_t *ctx)
 {
 	glfwDestroyWindow(ctx->window);
 	free(ctx);
-
+    
 	return 0;
 }
 

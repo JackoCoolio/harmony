@@ -8,6 +8,8 @@
 typedef struct harmony_context
 {
 	GLFWwindow *window;
+    int width;
+    int height;
 } harmony_context_t;
 
 harmony_context_t *harmony_createContext();

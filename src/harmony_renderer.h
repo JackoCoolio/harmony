@@ -6,10 +6,6 @@
 
 typedef struct harmony_context harmony_context_t;
 
-void harmony_initializeRenderPipeline();
-
-void harmony_testInit();
-
-void harmony_testRender(harmony_context_t *ctx);
+void harmony_initializeRenderer(harmony_context_t *ctx);
 
 #endif
