@@ -22,11 +22,6 @@ extern "C"
 #include "harmony_texture.h"
 #include "harmony_batch.h"
     
-    // Entry point
-#include "harmony_entry.h"
-    
-#define main harmony_createApplication
-    
 #ifdef __cplusplus
 }
 #endif
